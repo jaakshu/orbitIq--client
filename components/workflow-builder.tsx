@@ -18,7 +18,7 @@ import ReactFlow, {
   MiniMap,
 } from "reactflow";
 import "reactflow/dist/style.css";
-import { Plus, Save, Image as ImageIcon, MessageSquare, FileText, ImageDown, Terminal, Upload, Download } from "lucide-react";
+import { Plus, Save, Image as ImageIcon, MessageSquare, FileText, ImageDown, Terminal, Upload, Download, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -35,6 +35,7 @@ import { useRecoilState } from "recoil";
 import { workflowState } from "@/lib/atoms";
 import type { WorkflowData } from "@/lib/types";
 import { WorkflowMetadata } from "@/components/workflow-metadata";
+import AIButton from "./framer-ai-button/AIButton";
 
 const nodeTypes: NodeTypes = {
   textGenerationNode: TextGenerationNode,
@@ -91,7 +92,6 @@ export default function WorkflowBuilder() {
   // Load saved state from localStorage
   useEffect(() => {
     const savedState = localStorage.getItem(STORAGE_KEY);
-    console.log(savedState)
     if (savedState) {
       try {
         const { nodes: savedNodes, edges: savedEdges, metadata: savedMetadata } = JSON.parse(savedState);
@@ -211,15 +211,15 @@ export default function WorkflowBuilder() {
         },
         data: {
           label: `${type === "textGenerationNode" ? "Text Generation" :
-              type === "imageGenerationNode" ? "Image Generation" :
-                type === "fileToTextNode" ? "File to Text" :
-                  "Image to Text"
+            type === "imageGenerationNode" ? "Image Generation" :
+              type === "fileToTextNode" ? "File to Text" :
+                "Image to Text"
             } ${nodes.length}`,
           type: type.replace('Node', '') as any,
           description: `Configure this ${type === "textGenerationNode" ? "text generation" :
-              type === "imageGenerationNode" ? "image generation" :
-                type === "fileToTextNode" ? "file to text" :
-                  "image to text"
+            type === "imageGenerationNode" ? "image generation" :
+              type === "fileToTextNode" ? "file to text" :
+                "image to text"
             } node`,
           prompt: "",
           outputType: type === "imageGenerationNode" ? "image" : "text",
@@ -301,9 +301,10 @@ export default function WorkflowBuilder() {
           <WorkflowMetadata metadata={metadata} onUpdate={handleMetadataUpdate} />
         </Panel>
         <Panel position="top-right" className="flex gap-2">
+          <AIButton />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button size="sm" variant="secondary" className="shadow-md">
+              <Button size="sm" variant="secondary" className="shadow-md text-sm">
                 <Plus className="mr-2 h-4 w-4" />
                 Add Node
               </Button>
