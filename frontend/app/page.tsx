@@ -55,7 +55,7 @@ export default function Home() {
           <div className="flex items-center space-x-2">
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://github.com/yourusername/workflow-builder"
+                href="https://github.com/jaakshu/orbitIq--client"
                 target="_blank"
                 rel="noopener noreferrer"
               >
